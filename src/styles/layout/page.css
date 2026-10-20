@@ -1,0 +1,118 @@
+.wrapper {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+main {
+  padding-top: var(--space-5);
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: var(--space-5);
+}
+
+/*---------------- SECCIONES -----------------*/
+
+.section {
+  margin-bottom: var(--space-7);
+  padding-top: var(--space-4);
+  border-top: 3px double var(--clr-rule);
+}
+
+/* Encabezado de sección: título serif con bloque rojo, al estilo de un diario impreso */
+.section__header .section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--clr-text);
+}
+
+.section__header .section-title::before {
+  content: "";
+  width: 0.45rem;
+  height: 1em;
+  background: var(--clr-accent);
+}
+
+/*---------------- PIE DE PÁGINA -----------------*/
+
+.site-footer {
+  border-top: 3px double var(--clr-rule);
+  font-size: var(--fs-sm);
+  color: var(--clr-muted);
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: var(--space-6);
+  padding-block: var(--space-7) var(--space-6);
+}
+
+.site-footer__brand {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--clr-text);
+}
+
+.site-footer__about p:last-child {
+  max-width: 42ch;
+}
+
+.site-footer__heading {
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+}
+
+.site-footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.site-footer__links a {
+  display: inline-block;
+  padding: 0;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--clr-text);
+}
+
+.site-footer__links a::after {
+  display: none;
+}
+
+.site-footer__links a:hover {
+  color: var(--clr-accent);
+}
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--clr-border);
+  font-size: var(--fs-xs);
+}
+
+@media (min-width: 768px) {
+  .site-footer__grid {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}

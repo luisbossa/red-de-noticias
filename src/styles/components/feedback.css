@@ -1,0 +1,96 @@
+/*---------------- ESTADOS -----------------*/
+
+.status__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 32rem;
+  margin: var(--space-7) auto;
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+  border: 1px dashed var(--clr-border);
+  border-radius: var(--radius);
+  background: var(--clr-surface);
+  color: var(--clr-muted);
+  animation: fade-up 0.5s var(--ease-out) both;
+}
+
+.status__icon {
+  font-size: 2.5rem;
+  color: var(--clr-accent);
+}
+
+.status__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--clr-text);
+}
+
+.status__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.empty-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-7) var(--space-4);
+  text-align: center;
+  color: var(--clr-muted);
+  font-size: var(--fs-sm);
+}
+
+.empty-list i {
+  font-size: 2.25rem;
+  color: var(--clr-accent);
+}
+
+.empty-list__title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--clr-text);
+}
+
+/*---------------- PLACEHOLDERS DE CARGA -----------------*/
+
+.skeleton .media,
+.skeleton__line {
+  background: linear-gradient(90deg, var(--clr-surface-alt) 25%, var(--clr-border) 50%, var(--clr-surface-alt) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.skeleton__line {
+  display: block;
+  width: 100%;
+  height: 0.9rem;
+  border-radius: 4px;
+}
+
+.skeleton__line--short {
+  width: 40%;
+}
+
+.skeleton__line--title {
+  height: 1.8rem;
+}
+
+.skeleton .latest__rank {
+  color: var(--clr-border);
+}
+
+.featured.skeleton {
+  animation: none;
+}
+
+.card.skeleton:hover {
+  transform: none;
+  box-shadow: 0 1px 2px var(--clr-shadow);
+}

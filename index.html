@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Red de Noticias: las últimas noticias de Costa Rica de Diario Extra, Semanario Universidad, Voz de Guanacaste, Surcos Digital y UNA Comunica.">
+  <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+  <title>Red de Noticias</title>
+
+  <!-- Aplica el tema guardado antes de pintar para evitar el parpadeo -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("theme");
+        var dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+      } catch (e) { }
+    })();
+  </script>
+
+  <link rel="icon" href="assets/img/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"
+    integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="src/styles/main.css">
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <!-------------------- ENCABEZADO -------------------->
+  <header class="site-header">
+    <div class="topbar wrapper">
+      <p class="topbar__meta">
+        <time id="today" class="topbar__date"></time>
+        <span class="topbar__tagline">Informarte al instante</span>
+      </p>
+      <p class="topbar__edition">Edición digital · Costa Rica</p>
+    </div>
+
+    <div class="masthead wrapper">
+      <h1 class="masthead__title">Red de Noticias</h1>
+      <p class="masthead__subtitle">Las noticias de Costa Rica, en un solo lugar</p>
+    </div>
+  </header>
+
+  <!-------------------- NAVEGACIÓN FIJA -------------------->
+  <nav class="navbar" aria-label="Secciones">
+    <div class="navbar__inner wrapper">
+      <a class="navbar__brand" href="#top" aria-label="Ir al inicio">RN</a>
+      <ul id="section-nav" class="navbar__links">
+        <!-- JS -->
+      </ul>
+      <div class="navbar__actions">
+        <button class="icon-button" type="button" data-action="search" aria-label="Buscar noticias (atajo /)"
+          title="Buscar ( / )">
+          <i class="ri-search-line" aria-hidden="true"></i>
+        </button>
+        <button class="icon-button" type="button" data-action="saved" aria-label="Noticias guardadas" title="Guardados">
+          <i class="ri-bookmark-line" aria-hidden="true"></i>
+          <span id="saved-count" class="badge" hidden>0</span>
+        </button>
+        <button id="refresh-button" class="icon-button" type="button" aria-label="Actualizar noticias"
+          title="Actualizar">
+          <i class="ri-refresh-line" aria-hidden="true"></i>
+        </button>
+        <button id="theme-toggle" class="icon-button theme-toggle" type="button" aria-label="Cambiar a modo oscuro"
+          title="Cambiar tema">
+          <i class="ri-moon-line icon-moon" aria-hidden="true"></i>
+          <i class="ri-sun-line icon-sun" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Barra de progreso de lectura (solo en la vista de nota) -->
+  <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+  <!--==================== VISTA: PORTADA ====================-->
+  <div id="home-view">
+    <!-------------------- ÚLTIMA HORA -------------------->
+    <div id="ticker" class="ticker" hidden>
+      <div class="ticker__inner wrapper">
+        <span class="ticker__label"><span class="live-dot" aria-hidden="true"></span>Última hora</span>
+        <div class="ticker__viewport">
+          <div id="ticker-track" class="ticker__track">
+            <!-- JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main id="contenido" aria-live="polite" aria-busy="true">
+      <div class="wrapper">
+
+        <!-------------------- INDICADORES -------------------->
+        <section class="indicators" aria-label="Indicadores del día">
+          <article id="indicator-weather" class="indicator" hidden></article>
+          <article id="indicator-exchange" class="indicator" hidden></article>
+          <article id="indicator-summary" class="indicator" hidden></article>
+        </section>
+
+        <!-------------------- FILTRO DE MEDIOS -------------------->
+        <div class="filterbar">
+          <span class="filterbar__label">Medios</span>
+          <div id="source-tabs" class="chips" role="group" aria-label="Filtrar por medio">
+            <!-- JS -->
+          </div>
+        </div>
+
+        <div id="news-content">
+          <!-------------------- PORTADA -------------------->
+          <section id="portada" class="front" aria-label="Portada">
+            <div class="front__main">
+              <div id="featured"></div>
+              <div id="secondary" class="front__secondary"></div>
+            </div>
+
+            <aside class="latest" aria-labelledby="latest-title">
+              <h2 id="latest-title" class="section-title">Lo último</h2>
+              <ol id="latest-list" class="latest__list"></ol>
+            </aside>
+          </section>
+
+          <!-------------------- SECCIONES POR CATEGORÍA -------------------->
+          <div id="sections"></div>
+
+          <!-------------------- POR MEDIO -------------------->
+          <section id="por-medio" class="section by-source" hidden>
+            <header class="section__header">
+              <h2 class="section-title">Por medio</h2>
+            </header>
+            <div id="by-source-grid" class="by-source__grid"></div>
+          </section>
+
+          <!-------------------- MÁS NOTICIAS -------------------->
+          <section id="mas-noticias" class="section more">
+            <header class="section__header">
+              <h2 class="section-title">Más noticias</h2>
+            </header>
+            <div id="news-grid" class="news-grid"></div>
+            <div class="more__actions">
+              <button id="load-more" class="button button--ghost" type="button" data-action="load-more" hidden>
+                Cargar más <span class="more__count">(<span data-count>0</span>)</span>
+                <i class="ri-arrow-down-line" aria-hidden="true"></i>
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <section id="status" class="status" hidden></section>
+      </div>
+    </main>
+
+    <!-------------------- SOBRE NOSOTROS -------------------->
+    <section class="about wrapper" aria-label="Sobre nosotros">
+      <blockquote class="about__quote">
+        En un mundo que nunca se detiene, <strong>«La Verdad en Tiempo Real»</strong> es tu ventana a las noticias más
+        relevantes y actuales. Nos comprometemos a ofrecerte la información más reciente, con una cobertura completa y
+        precisa para que siempre estés al tanto de lo que sucede a tu alrededor.
+      </blockquote>
+    </section>
+
+  </div>
+  <!--==================== /VISTA: PORTADA ====================-->
+
+  <!--==================== VISTA: NOTA ====================-->
+  <main id="article-view" class="article-view wrapper" aria-live="polite" hidden>
+    <div id="article-root"></div>
+  </main>
+
+  <!-------------------- PIE DE PÁGINA -------------------->
+  <footer class="site-footer">
+    <div class="wrapper site-footer__grid">
+      <div class="site-footer__about">
+        <p class="site-footer__brand">Red de Noticias</p>
+        <p>Reunimos los titulares de los principales medios de Costa Rica para que te informes rápido. Cada nota enlaza
+          a su medio original.</p>
+      </div>
+      <div>
+        <h2 class="site-footer__heading">Secciones</h2>
+        <ul id="footer-sections" class="site-footer__links"></ul>
+      </div>
+      <div>
+        <h2 class="site-footer__heading">Fuentes</h2>
+        <ul id="footer-sources" class="site-footer__links"></ul>
+      </div>
+    </div>
+    <div class="wrapper site-footer__bottom">
+      <p>© <span id="footer-year"></span> <span id="footer-company"></span></p>
+      <p>Clima: Open-Meteo · Tipo de cambio: Ministerio de Hacienda</p>
+    </div>
+  </footer>
+
+  <!-------------------- CAPAS FLOTANTES -------------------->
+  <dialog id="search-dialog" class="modal search" aria-label="Buscar noticias">
+    <div class="search__bar">
+      <i class="ri-search-line" aria-hidden="true"></i>
+      <input id="search-input" class="search__input" type="search" placeholder="Buscar noticias…" autocomplete="off"
+        aria-label="Buscar noticias">
+      <button class="icon-button" type="button" data-action="close-dialog" aria-label="Cerrar búsqueda">
+        <i class="ri-close-line" aria-hidden="true"></i>
+      </button>
+    </div>
+    <p id="search-summary" class="search__summary"></p>
+    <ul id="search-results" class="compact-list"></ul>
+  </dialog>
+
+  <dialog id="saved-dialog" class="drawer" aria-labelledby="saved-title">
+    <header class="drawer__header">
+      <h2 id="saved-title" class="drawer__title"><i class="ri-bookmark-line" aria-hidden="true"></i> Guardados</h2>
+      <button class="icon-button" type="button" data-action="close-dialog" aria-label="Cerrar guardados">
+        <i class="ri-close-line" aria-hidden="true"></i>
+      </button>
+    </header>
+    <ul id="saved-list" class="compact-list"></ul>
+  </dialog>
+
+  <button id="new-stories" class="new-stories" type="button" data-action="show-new" hidden>
+    <i class="ri-arrow-up-line" aria-hidden="true"></i> <span data-count></span>
+  </button>
+
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="Volver arriba">
+    <i class="ri-arrow-up-line" aria-hidden="true"></i>
+  </button>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+
+  <script type="module" src="src/js/main.js"></script>
+</body>
+
+</html>

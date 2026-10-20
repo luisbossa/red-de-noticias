@@ -1,0 +1,246 @@
+/*---------------- BOTÓN DE ÍCONO -----------------*/
+
+.icon-button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--clr-border);
+  border-radius: 50%;
+  background: var(--clr-surface);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition),
+    transform var(--transition);
+}
+
+.icon-button:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+}
+
+.icon-button:active {
+  transform: scale(0.92);
+}
+
+.icon-button:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.icon-button.is-loading i {
+  animation: spin 0.9s linear infinite;
+}
+
+.icon-sun,
+:root[data-theme="dark"] .icon-moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .icon-sun {
+  display: block;
+}
+
+.theme-toggle i {
+  animation: icon-in 0.45s var(--ease-out);
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  padding-inline: 0.25rem;
+  border-radius: 999px;
+  background: var(--clr-accent);
+  color: var(--clr-on-accent);
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1.15rem;
+  text-align: center;
+  animation: pop 0.35s var(--ease-out);
+}
+
+/*---------------- BOTÓN PRINCIPAL -----------------*/
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--clr-accent);
+  border-radius: var(--radius);
+  background: var(--clr-accent);
+  color: var(--clr-on-accent);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition),
+    transform var(--transition);
+}
+
+.button:hover {
+  background: var(--clr-accent-hover);
+  border-color: var(--clr-accent-hover);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button i {
+  transition: transform var(--transition);
+}
+
+.button:hover i {
+  transform: translateX(3px);
+}
+
+.button:hover .ri-external-link-line,
+.button:hover .ri-arrow-right-up-line {
+  transform: translate(2px, -2px);
+}
+
+.button--ghost {
+  background: transparent;
+  border-color: var(--clr-text);
+  color: var(--clr-text);
+}
+
+.button--ghost:hover {
+  background: var(--clr-text);
+  border-color: var(--clr-text);
+  color: var(--clr-bg);
+}
+
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  border: 0;
+  background: none;
+  color: var(--clr-accent);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.link-button i {
+  transition: transform var(--transition);
+}
+
+.link-button:hover i {
+  transform: translateX(3px);
+}
+
+/*---------------- CHIPS -----------------*/
+
+.chips {
+  display: flex;
+  gap: var(--space-2);
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chips--wrap {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--clr-border);
+  border-radius: 999px;
+  background: var(--clr-surface);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition),
+    transform var(--transition);
+}
+
+.chip:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+}
+
+.chip:active {
+  transform: scale(0.95);
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--clr-text);
+  border-color: var(--clr-text);
+  color: var(--clr-bg);
+}
+
+/*---------------- GUARDAR / COMPARTIR -----------------*/
+
+.story-actions {
+  display: flex;
+  gap: var(--space-1);
+  margin-left: auto;
+}
+
+.action-button {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--clr-muted);
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.action-button:hover {
+  background: var(--clr-surface-alt);
+  color: var(--clr-accent);
+}
+
+/* Variante con texto (barra de la vista de nota) */
+.action-button--label {
+  display: inline-flex;
+  gap: var(--space-2);
+  width: auto;
+  padding-inline: var(--space-3);
+  border: 1px solid var(--clr-border);
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+.action-button .icon-on,
+.action-button[aria-pressed="true"] .icon-off {
+  display: none;
+}
+
+.action-button[aria-pressed="true"] {
+  color: var(--clr-accent);
+}
+
+.action-button[aria-pressed="true"] .icon-on {
+  display: inline;
+}
+
+.action-button.pop {
+  animation: pop 0.4s var(--ease-out);
+}
